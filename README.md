@@ -26,6 +26,29 @@ Keep the committed model and input encoding together; the requirements pin sciki
 
 This is an educational model demonstration. Its output is not a clinical diagnosis or a validated estimate of an individual's medical risk.
 
+## UML diagrams
+
+### Main workflow
+
+The Streamlit app builds an eight-feature row for the committed model and displays its classification and probability.
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant App as Streamlit app.py
+    participant Input as Feature DataFrame
+    participant Model as model.pkl
+    User->>App: Enter eight health measurements
+    App->>Input: Build row in expected feature order
+    Input-->>App: Model input
+    App->>Model: predict
+    Model-->>App: Class
+    App->>Model: predict_proba
+    Model-->>App: Class probabilities
+    App-->>User: Display model result and probability
+    Note over User,App: Educational prediction rather than a diagnosis
+```
+
 ## Getting started
 
 ```bash
